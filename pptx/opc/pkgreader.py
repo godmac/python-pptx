@@ -287,7 +287,11 @@ class _SerializedRelationshipCollection(object):
         """
         srels = _SerializedRelationshipCollection()
         if rels_item_xml is not None:
-            rels_elm = parse_xml(rels_item_xml)
-            for rel_elm in rels_elm.relationship_lst:
-                srels._srels.append(_SerializedRelationship(baseURI, rel_elm))
+            if 'NULL' in str(rels_item_xml):
+                print('NULL found and skiped')
+                pass
+            else:
+                rels_elm = parse_xml(rels_item_xml)
+                for rel_elm in rels_elm.relationship_lst:
+                  srels._srels.append(_SerializedRelationship(baseURI, rel_elm))
         return srels
